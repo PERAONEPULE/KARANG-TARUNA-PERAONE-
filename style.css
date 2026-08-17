@@ -647,3 +647,58 @@ a {
   height: 45px;
   object-fit: contain;
 }
+
+/* =========================
+   QRIS KAS KARANG TARUNA
+   ========================= */
+
+.qris-section {
+  background: #f8fafc;
+}
+
+.qris-card {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.10);
+}
+
+.qris-card img {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin: 0 auto 20px;
+  border-radius: 12px;
+}
+
+.qris-card h3 {
+  margin: 10px 0;
+  font-size: 22px;
+}
+
+.qris-card p {
+  margin: 8px 0;
+  color: #666;
+}
+
+.qris-card small {
+  display: block;
+  margin-top: 15px;
+  color: #888;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .qris-card {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .qris-card img {
+    max-width: 100%;
+  }
+}

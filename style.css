@@ -642,3 +642,8 @@ a {
     height: 230px;
   }
 }
+.logo img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}

@@ -774,3 +774,22 @@ a {
   color: #666;
   line-height: 1.6;
 }
+.qris-wa-button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 18px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: #25D366;
+  color: #ffffff !important;
+  text-align: center;
+  text-decoration: none !important;
+  font-weight: 700;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.qris-wa-button:hover {
+  transform: translateY(-2px);
+}

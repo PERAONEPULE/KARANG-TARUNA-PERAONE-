@@ -264,11 +264,11 @@ if (kasCard) {
 
   // =====================================
   // PERIODE KAS 14 HARI
-  // Mulai 19 Agustus 2026
+  // Mulai 23 Agustus 2026
   // =====================================
 
   const tanggalAwal =
-    new Date(2026, 7, 19);
+  new Date(2026, 7, 23);
 
   function duaAngka(angka) {
     return String(angka).padStart(2, "0");

@@ -1,6 +1,6 @@
 // ==========================================
 // KARANG TARUNA PERAONEPULE
-// JAVASCRIPT
+// JAVASCRIPT WEBSITE
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (menuToggle && navMenu) {
 
     menuToggle.addEventListener("click", function () {
+
       navMenu.classList.toggle("active");
 
       if (navMenu.classList.contains("active")) {
@@ -22,18 +23,24 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         menuToggle.textContent = "☰";
       }
+
     });
 
-    // Tutup menu setelah memilih menu
     const navLinks = navMenu.querySelectorAll("a");
 
     navLinks.forEach(function (link) {
+
       link.addEventListener("click", function () {
+
         navMenu.classList.remove("active");
         menuToggle.textContent = "☰";
+
       });
+
     });
+
   }
+
 
   // ============================
   // TAHUN OTOMATIS
@@ -44,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (year) {
     year.textContent = new Date().getFullYear();
   }
+
 
   // ============================
   // TOMBOL BACK TO TOP
@@ -56,20 +64,28 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("scroll", function () {
 
       if (window.scrollY > 400) {
+
         backTop.classList.add("show");
+
       } else {
+
         backTop.classList.remove("show");
+
       }
 
     });
 
     backTop.addEventListener("click", function () {
+
       window.scrollTo({
         top: 0,
         behavior: "smooth"
       });
+
     });
+
   }
+
 
   // ============================
   // ANIMASI SAAT SCROLL
@@ -80,28 +96,37 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
   const observer = new IntersectionObserver(
+
     function (entries) {
 
       entries.forEach(function (entry) {
 
         if (entry.isIntersecting) {
+
           entry.target.style.opacity = "1";
           entry.target.style.transform = "translateY(0)";
+
           observer.unobserve(entry.target);
+
         }
 
       });
 
     },
+
     {
       threshold: 0.1
     }
+
   );
 
   animatedElements.forEach(function (element) {
 
     element.style.opacity = "0";
-    element.style.transform = "translateY(25px)";
+
+    element.style.transform =
+      "translateY(25px)";
+
     element.style.transition =
       "opacity 0.6s ease, transform 0.6s ease";
 
@@ -110,23 +135,31 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
-  // ============================
+  // ==========================================
   // KONFIRMASI KAS PERAONEPULE
-  // KELIPATAN Rp5.000
-  // ============================
+  // NOMINAL KELIPATAN Rp5.000
+  // ==========================================
 
   const KAS_WEB_APP_URL =
     "https://script.google.com/macros/s/AKfycbxoY4Ed2VejMYODWLr_AEgSxVR4GYtIfmjqGPCuEcH7x6j0Z_N1qsODa3yeXJOGFEy_kw/exec";
 
-  const kasSection = document.getElementById("kas");
 
-  const kasCard = kasSection
-    ? kasSection.querySelector(".kas-card")
-    : null;
+  const kasSection =
+    document.getElementById("kas");
+
+  const kasCard =
+    kasSection
+      ? kasSection.querySelector(".kas-card")
+      : null;
+
 
   if (kasCard) {
 
-    // Hapus tombol WhatsApp lama
+
+    // =====================================
+    // HAPUS TOMBOL WHATSAPP LAMA
+    // =====================================
+
     const oldButton =
       kasCard.querySelector(".qris-wa-button");
 
@@ -134,24 +167,42 @@ document.addEventListener("DOMContentLoaded", function () {
       oldButton.remove();
     }
 
-    const formBox = document.createElement("div");
 
-    formBox.className = "kas-confirm-box";
+    // =====================================
+    // FORM KONFIRMASI KAS
+    // =====================================
+
+    const formBox =
+      document.createElement("div");
+
+    formBox.className =
+      "kas-confirm-box";
+
 
     formBox.innerHTML = `
-      <div class="kas-confirm-icon">🧾</div>
 
-      <h3>Konfirmasi Pembayaran Kas</h3>
+      <div class="kas-confirm-icon">
+        🧾
+      </div>
+
+      <h3>
+        Konfirmasi Pembayaran Kas
+      </h3>
 
       <p>
-        Setelah membayar melalui QRIS, isi formulir di bawah.
-        Nominal kas adalah <strong>Rp5.000 setiap 2 minggu</strong>.
-        Jika ingin membayar lebih, silakan pilih kelipatan Rp5.000.
+        Setelah membayar melalui QRIS,
+        isi formulir di bawah.
+        Nominal kas adalah
+        <strong>kelipatan Rp5.000</strong>.
       </p>
+
 
       <form id="kasConfirmForm">
 
-        <label>Nama Anggota</label>
+
+        <label>
+          Nama Anggota
+        </label>
 
         <input
           id="kasNama"
@@ -162,7 +213,10 @@ document.addEventListener("DOMContentLoaded", function () {
           maxlength="80"
         >
 
-        <label>Periode Kas</label>
+
+        <label>
+          Periode Kas
+        </label>
 
         <input
           id="kasPeriode"
@@ -171,7 +225,10 @@ document.addEventListener("DOMContentLoaded", function () {
           readonly
         >
 
-        <label>Tanggal Pembayaran</label>
+
+        <label>
+          Tanggal Pembayaran
+        </label>
 
         <input
           id="kasTanggal"
@@ -180,26 +237,103 @@ document.addEventListener("DOMContentLoaded", function () {
           required
         >
 
-        <label>Nominal</label>
+
+        <label>
+          Nominal
+        </label>
 
         <select
           id="kasNominal"
           name="nominal"
           required
         >
-          <option value="5000">Rp5.000</option>
-          <option value="10000">Rp10.000</option>
-          <option value="15000">Rp15.000</option>
-          <option value="20000">Rp20.000</option>
-          <option value="25000">Rp25.000</option>
-          <option value="30000">Rp30.000</option>
-          <option value="35000">Rp35.000</option>
-          <option value="40000">Rp40.000</option>
-          <option value="45000">Rp45.000</option>
-          <option value="50000">Rp50.000</option>
+
+          <option value="5000">
+            Rp5.000
+          </option>
+
+          <option value="10000">
+            Rp10.000
+          </option>
+
+          <option value="15000">
+            Rp15.000
+          </option>
+
+          <option value="20000">
+            Rp20.000
+          </option>
+
+          <option value="25000">
+            Rp25.000
+          </option>
+
+          <option value="30000">
+            Rp30.000
+          </option>
+
+          <option value="35000">
+            Rp35.000
+          </option>
+
+          <option value="40000">
+            Rp40.000
+          </option>
+
+          <option value="45000">
+            Rp45.000
+          </option>
+
+          <option value="50000">
+            Rp50.000
+          </option>
+
+          <option value="55000">
+            Rp55.000
+          </option>
+
+          <option value="60000">
+            Rp60.000
+          </option>
+
+          <option value="65000">
+            Rp65.000
+          </option>
+
+          <option value="70000">
+            Rp70.000
+          </option>
+
+          <option value="75000">
+            Rp75.000
+          </option>
+
+          <option value="80000">
+            Rp80.000
+          </option>
+
+          <option value="85000">
+            Rp85.000
+          </option>
+
+          <option value="90000">
+            Rp90.000
+          </option>
+
+          <option value="95000">
+            Rp95.000
+          </option>
+
+          <option value="100000">
+            Rp100.000
+          </option>
+
         </select>
 
-        <label>Bukti Pembayaran</label>
+
+        <label>
+          Bukti Pembayaran
+        </label>
 
         <input
           id="kasBukti"
@@ -209,10 +343,14 @@ document.addEventListener("DOMContentLoaded", function () {
         >
 
         <small>
-          Upload screenshot bukti pembayaran. Maksimal 2 MB.
+          Upload screenshot bukti pembayaran.
+          Maksimal 2 MB.
         </small>
 
-        <label>Keterangan</label>
+
+        <label>
+          Keterangan
+        </label>
 
         <textarea
           id="kasKeterangan"
@@ -220,6 +358,7 @@ document.addEventListener("DOMContentLoaded", function () {
           maxlength="200"
           placeholder="Contoh: Kas periode ini"
         ></textarea>
+
 
         <button
           type="submit"
@@ -229,146 +368,228 @@ document.addEventListener("DOMContentLoaded", function () {
           💰 Kirim Konfirmasi Pembayaran
         </button>
 
+
         <div
           id="kasFormMessage"
           class="kas-form-message"
         ></div>
 
+
       </form>
+
 
       <iframe
         name="kasSubmitFrame"
         id="kasSubmitFrame"
         style="display:none;"
       ></iframe>
+
     `;
+
 
     kasCard.appendChild(formBox);
 
 
-    // ============================
+    // =====================================
     // AMBIL ELEMENT FORM
-    // ============================
+    // =====================================
 
     const form =
-      document.getElementById("kasConfirmForm");
+      document.getElementById(
+        "kasConfirmForm"
+      );
 
     const nama =
-      document.getElementById("kasNama");
+      document.getElementById(
+        "kasNama"
+      );
 
     const periode =
-      document.getElementById("kasPeriode");
+      document.getElementById(
+        "kasPeriode"
+      );
 
     const tanggal =
-      document.getElementById("kasTanggal");
+      document.getElementById(
+        "kasTanggal"
+      );
 
     const nominal =
-      document.getElementById("kasNominal");
+      document.getElementById(
+        "kasNominal"
+      );
 
     const bukti =
-      document.getElementById("kasBukti");
+      document.getElementById(
+        "kasBukti"
+      );
 
     const keterangan =
-      document.getElementById("kasKeterangan");
+      document.getElementById(
+        "kasKeterangan"
+      );
 
     const button =
-      document.getElementById("kasSubmitButton");
+      document.getElementById(
+        "kasSubmitButton"
+      );
 
     const message =
-      document.getElementById("kasFormMessage");
+      document.getElementById(
+        "kasFormMessage"
+      );
 
     const iframe =
-      document.getElementById("kasSubmitFrame");
+      document.getElementById(
+        "kasSubmitFrame"
+      );
 
 
     // =====================================
     // PERIODE KAS 14 HARI
-    // Mulai 23 Agustus 2026
+    // MULAI 23 AGUSTUS 2026
     // =====================================
 
     const tanggalAwal =
       new Date(2026, 7, 23);
 
+
     function duaAngka(angka) {
-      return String(angka).padStart(2, "0");
+
+      return String(angka)
+        .padStart(2, "0");
+
     }
+
 
     function tanggalInput(date) {
 
       return (
+
         date.getFullYear() +
+
         "-" +
-        duaAngka(date.getMonth() + 1) +
+
+        duaAngka(
+          date.getMonth() + 1
+        ) +
+
         "-" +
-        duaAngka(date.getDate())
+
+        duaAngka(
+          date.getDate()
+        )
+
       );
 
     }
 
+
     function formatTanggal(date) {
 
       return date.toLocaleDateString(
+
         "id-ID",
+
         {
           day: "2-digit",
           month: "long",
           year: "numeric"
         }
+
       );
 
     }
+
 
     function updatePeriodeKas() {
 
       const sekarang =
         new Date();
 
+
       const hariIni =
         new Date(
+
           sekarang.getFullYear(),
+
           sekarang.getMonth(),
+
           sekarang.getDate()
+
         );
+
 
       const selisih =
         Math.floor(
+
           (hariIni - tanggalAwal) /
           86400000
+
         );
+
 
       const nomorPeriode =
         Math.max(
+
           0,
-          Math.floor(selisih / 14)
+
+          Math.floor(
+            selisih / 14
+          )
+
         );
 
+
       const mulai =
-        new Date(tanggalAwal);
+        new Date(
+          tanggalAwal
+        );
+
 
       mulai.setDate(
+
         mulai.getDate() +
         nomorPeriode * 14
+
       );
+
 
       const selesai =
-        new Date(mulai);
+        new Date(
+          mulai
+        );
+
 
       selesai.setDate(
+
         selesai.getDate() + 13
+
       );
 
+
       periode.value =
+
         "Periode " +
+
         (nomorPeriode + 1) +
+
         " — " +
+
         formatTanggal(mulai) +
+
         " s/d " +
+
         formatTanggal(selesai);
 
     }
 
+
     tanggal.value =
-      tanggalInput(new Date());
+      tanggalInput(
+        new Date()
+      );
+
 
     updatePeriodeKas();
 
@@ -377,61 +598,94 @@ document.addEventListener("DOMContentLoaded", function () {
     // PROSES KIRIM
     // =====================================
 
-    let sedangMengirim = false;
+    let sedangMengirim =
+      false;
+
 
     iframe.addEventListener(
+
       "load",
+
       function () {
 
         if (!sedangMengirim) {
           return;
         }
 
-        sedangMengirim = false;
 
-        button.disabled = false;
+        sedangMengirim =
+          false;
+
+
+        button.disabled =
+          false;
+
 
         button.textContent =
           "💰 Kirim Konfirmasi Pembayaran";
 
-        const nominalDipilih =
-          Number(nominal.value);
-
-        const nominalFormat =
-          "Rp" +
-          nominalDipilih.toLocaleString(
-            "id-ID"
-          );
 
         message.className =
           "kas-form-message success";
 
+
+        // NOMINAL SESUAI YANG DIPILIH
+        const nominalTerkirim =
+          Number(
+            nominal.value
+          ).toLocaleString(
+            "id-ID"
+          );
+
+
         message.innerHTML =
+
           "✅ <strong>Konfirmasi berhasil dikirim.</strong><br>" +
-          "Pembayaran " +
-          nominalFormat +
+
+          "Pembayaran Rp" +
+          nominalTerkirim +
+
           " sudah dikirim " +
+
           "dan menunggu verifikasi bendahara.";
+
 
         form.reset();
 
+
         tanggal.value =
-          tanggalInput(new Date());
+          tanggalInput(
+            new Date()
+          );
+
 
         updatePeriodeKas();
 
       }
+
     );
 
 
+    // =====================================
+    // SUBMIT FORM
+    // =====================================
+
     form.addEventListener(
+
       "submit",
+
       async function (event) {
 
         event.preventDefault();
 
+
         const file =
           bukti.files[0];
+
+
+        // ===============================
+        // VALIDASI FILE
+        // ===============================
 
         if (!file) {
 
@@ -442,9 +696,15 @@ document.addEventListener("DOMContentLoaded", function () {
             "❌ Bukti pembayaran wajib diupload.";
 
           return;
+
         }
 
-        if (!file.type.startsWith("image/")) {
+
+        if (
+          !file.type.startsWith(
+            "image/"
+          )
+        ) {
 
           message.className =
             "kas-form-message error";
@@ -453,9 +713,14 @@ document.addEventListener("DOMContentLoaded", function () {
             "❌ Bukti harus berupa gambar.";
 
           return;
+
         }
 
-        if (file.size > 2 * 1024 * 1024) {
+
+        if (
+          file.size >
+          2 * 1024 * 1024
+        ) {
 
           message.className =
             "kas-form-message error";
@@ -464,21 +729,29 @@ document.addEventListener("DOMContentLoaded", function () {
             "❌ Ukuran bukti maksimal 2 MB.";
 
           return;
+
         }
 
 
-        // =====================================
+        // ===============================
         // VALIDASI NOMINAL
-        // HARUS KELIPATAN Rp5.000
-        // =====================================
+        // ===============================
 
         const nominalDipilih =
-          Number(nominal.value);
+          Number(
+            nominal.value
+          );
+
 
         if (
-          !Number.isFinite(nominalDipilih) ||
-          nominalDipilih < 5000 ||
+          !Number.isFinite(
+            nominalDipilih
+          ) ||
+
+          nominalDipilih <= 0 ||
+
           nominalDipilih % 5000 !== 0
+
         ) {
 
           message.className =
@@ -488,91 +761,158 @@ document.addEventListener("DOMContentLoaded", function () {
             "❌ Nominal harus kelipatan Rp5.000.";
 
           return;
+
         }
 
 
-        button.disabled = true;
+        // ===============================
+        // TOMBOL LOADING
+        // ===============================
+
+        button.disabled =
+          true;
+
 
         button.textContent =
           "⏳ Mengirim...";
 
-        sedangMengirim = true;
+
+        sedangMengirim =
+          true;
 
 
         try {
 
-          const hasil =
-            await kompresGambar(file);
 
+          // ===============================
+          // KOMPRES GAMBAR
+          // ===============================
+
+          const hasil =
+            await kompresGambar(
+              file
+            );
+
+
+          // ===============================
+          // BUAT FORM TERSEMBUNYI
+          // ===============================
 
           const hiddenForm =
-            document.createElement("form");
+            document.createElement(
+              "form"
+            );
+
 
           hiddenForm.method =
             "POST";
 
+
           hiddenForm.action =
             KAS_WEB_APP_URL;
 
+
           hiddenForm.target =
             "kasSubmitFrame";
+
 
           hiddenForm.style.display =
             "none";
 
 
+          // ===============================
+          // KIRIM DATA
+          // ===============================
+
           tambahInput(
+
             hiddenForm,
+
             "nama",
+
             nama.value.trim()
+
           );
 
+
           tambahInput(
+
             hiddenForm,
+
             "periode",
+
             periode.value
+
           );
 
+
           tambahInput(
+
             hiddenForm,
+
             "tanggal",
+
             tanggal.value
+
           );
 
 
-          // =====================================
-          // NOMINAL YANG DIPILIH PENGGUNA
-          // =====================================
-
+          // PENTING:
+          // NOMINAL SESUAI PILIHAN USER
           tambahInput(
+
             hiddenForm,
+
             "nominal",
-            String(nominalDipilih)
+
+            String(
+              nominalDipilih
+            )
+
           );
 
 
           tambahInput(
+
             hiddenForm,
+
             "bukti",
+
             hasil.data
+
           );
 
+
           tambahInput(
+
             hiddenForm,
+
             "namaFile",
+
             hasil.namaFile
+
           );
 
+
           tambahInput(
+
             hiddenForm,
+
             "tipeFile",
+
             "image/jpeg"
+
           );
 
+
           tambahInput(
+
             hiddenForm,
+
             "keterangan",
+
             keterangan.value.trim()
+
           );
 
 
@@ -580,47 +920,75 @@ document.addEventListener("DOMContentLoaded", function () {
             hiddenForm
           );
 
+
           hiddenForm.submit();
 
 
+          // ===============================
+          // TIMEOUT
+          // ===============================
+
           setTimeout(
+
             function () {
 
               if (sedangMengirim) {
 
-                sedangMengirim = false;
+                sedangMengirim =
+                  false;
 
-                button.disabled = false;
+
+                button.disabled =
+                  false;
+
 
                 button.textContent =
                   "💰 Kirim Konfirmasi Pembayaran";
 
+
                 message.className =
                   "kas-form-message error";
+
 
                 message.textContent =
                   "❌ Pengiriman belum mendapat respons. Silakan coba lagi.";
 
               }
 
-              hiddenForm.remove();
+
+              if (
+                hiddenForm.parentNode
+              ) {
+
+                hiddenForm.remove();
+
+              }
 
             },
+
             20000
+
           );
 
 
         } catch (error) {
 
-          sedangMengirim = false;
 
-          button.disabled = false;
+          sedangMengirim =
+            false;
+
+
+          button.disabled =
+            false;
+
 
           button.textContent =
             "💰 Kirim Konfirmasi Pembayaran";
 
+
           message.className =
             "kas-form-message error";
+
 
           message.textContent =
             "❌ Bukti pembayaran gagal diproses.";
@@ -628,6 +996,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
       }
+
     );
 
 
@@ -642,16 +1011,22 @@ document.addEventListener("DOMContentLoaded", function () {
     ) {
 
       const input =
-        document.createElement("input");
+        document.createElement(
+          "input"
+        );
+
 
       input.type =
         "hidden";
 
+
       input.name =
         nama;
 
+
       input.value =
         nilai;
+
 
       form.appendChild(
         input
@@ -667,49 +1042,79 @@ document.addEventListener("DOMContentLoaded", function () {
     function kompresGambar(file) {
 
       return new Promise(
-        function (resolve, reject) {
+
+        function (
+          resolve,
+          reject
+        ) {
+
 
           const reader =
             new FileReader();
 
+
           reader.onload =
             function (event) {
+
 
               const image =
                 new Image();
 
+
               image.onload =
                 function () {
+
 
                   const ukuranMaksimal =
                     1400;
 
+
                   let width =
                     image.width;
+
 
                   let height =
                     image.height;
 
 
                   if (
-                    width > ukuranMaksimal ||
-                    height > ukuranMaksimal
+
+                    width >
+                      ukuranMaksimal ||
+
+                    height >
+                      ukuranMaksimal
+
                   ) {
+
 
                     const skala =
                       Math.min(
-                        ukuranMaksimal / width,
-                        ukuranMaksimal / height
+
+                        ukuranMaksimal /
+                          width,
+
+                        ukuranMaksimal /
+                          height
+
                       );
+
 
                     width =
                       Math.round(
-                        width * skala
+
+                        width *
+                        skala
+
                       );
+
 
                     height =
                       Math.round(
-                        height * skala
+
+                        height *
+                        skala
+
                       );
 
                   }
@@ -720,8 +1125,10 @@ document.addEventListener("DOMContentLoaded", function () {
                       "canvas"
                     );
 
+
                   canvas.width =
                     width;
+
 
                   canvas.height =
                     height;
@@ -732,30 +1139,46 @@ document.addEventListener("DOMContentLoaded", function () {
                       "2d"
                     );
 
+
                   context.drawImage(
+
                     image,
+
                     0,
+
                     0,
+
                     width,
+
                     height
+
                   );
 
 
                   const dataURL =
                     canvas.toDataURL(
+
                       "image/jpeg",
+
                       0.78
+
                     );
 
 
                   resolve({
 
                     data:
-                      dataURL.split(",")[1],
+                      dataURL.split(
+                        ","
+                      )[1],
+
 
                     namaFile:
+
                       "bukti-kas-" +
+
                       Date.now() +
+
                       ".jpg"
 
                   });
@@ -766,6 +1189,7 @@ document.addEventListener("DOMContentLoaded", function () {
               image.onerror =
                 reject;
 
+
               image.src =
                 event.target.result;
 
@@ -775,11 +1199,13 @@ document.addEventListener("DOMContentLoaded", function () {
           reader.onerror =
             reject;
 
+
           reader.readAsDataURL(
             file
           );
 
         }
+
       );
 
     }
@@ -790,7 +1216,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // =====================================
 
     const style =
-      document.createElement("style");
+      document.createElement(
+        "style"
+      );
+
 
     style.textContent = `
 
@@ -813,8 +1242,7 @@ document.addEventListener("DOMContentLoaded", function () {
         margin-bottom: 10px;
       }
 
-      .kas-confirm-info {
-        text-align: center;
+      .kas-confirm-box p {
         line-height: 1.6;
         color: #666;
         margin-bottom: 25px;
@@ -845,14 +1273,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       .kas-confirm-form select {
         cursor: pointer;
-      }
-
-      .kas-fixed-nominal {
-        padding: 12px;
-        border-radius: 10px;
-        background: #fff;
-        font-weight: bold;
-        font-size: 18px;
       }
 
       .kas-confirm-form small {
@@ -893,7 +1313,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     `;
 
-    document.head.appendChild(style);
+
+    document.head.appendChild(
+      style
+    );
 
   }
 

@@ -1321,3 +1321,151 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 });
+
+/* ================= SISTEM GALERI ================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+  const galleryItems = document.querySelectorAll(".gallery-item");
+  const galleryModal = document.getElementById("galleryModal");
+  const galleryModalImage = document.getElementById("galleryModalImage");
+  const galleryModalTitle = document.getElementById("galleryModalTitle");
+  const galleryCounter = document.getElementById("galleryCounter");
+  const galleryClose = document.getElementById("galleryClose");
+  const galleryPrev = document.getElementById("galleryPrev");
+  const galleryNext = document.getElementById("galleryNext");
+
+  if (
+    !galleryItems.length ||
+    !galleryModal ||
+    !galleryModalImage
+  ) {
+    return;
+  }
+
+  let currentPhotos = [];
+  let currentIndex = 0;
+  let slideshowTimer = null;
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function showPhoto(index) {
+    if (!currentPhotos.length) return;
+
+    if (index < 0) {
+      currentIndex = currentPhotos.length - 1;
+    } else if (index >= currentPhotos.length) {
+      currentIndex = 0;
+    } else {
+      currentIndex = index;
+    }
+
+    galleryModalImage.src = currentPhotos[currentIndex];
+    galleryCounter.textContent =
+      `${currentIndex + 1} / ${currentPhotos.length}`;
+  }
+
+  function startSlideshow() {
+    stopSlideshow();
+
+    slideshowTimer = setInterval(function () {
+      showPhoto(currentIndex + 1);
+    }, 4000);
+  }
+
+  function stopSlideshow() {
+    if (slideshowTimer) {
+      clearInterval(slideshowTimer);
+      slideshowTimer = null;
+    }
+  }
+
+  function openGallery(item) {
+    const title = item.getAttribute("data-title") || "Galeri";
+    const photos = item.getAttribute("data-photos");
+
+    if (!photos) return;
+
+    currentPhotos = photos
+      .split(",")
+      .map(photo => photo.trim())
+      .filter(Boolean);
+
+    currentIndex = 0;
+    galleryModalTitle.textContent = title;
+    galleryModal.classList.add("active");
+    document.body.style.overflow = "hidden";
+
+    showPhoto(currentIndex);
+    startSlideshow();
+  }
+
+  function closeGallery() {
+    galleryModal.classList.remove("active");
+    document.body.style.overflow = "";
+    stopSlideshow();
+    galleryModalImage.src = "";
+  }
+
+  galleryItems.forEach(function (item) {
+    item.addEventListener("click", function () {
+      openGallery(item);
+    });
+  });
+
+  galleryClose.addEventListener("click", closeGallery);
+
+  galleryPrev.addEventListener("click", function () {
+    showPhoto(currentIndex - 1);
+    startSlideshow();
+  });
+
+  galleryNext.addEventListener("click", function () {
+    showPhoto(currentIndex + 1);
+    startSlideshow();
+  });
+
+  galleryModal.addEventListener("click", function (event) {
+    if (event.target === galleryModal) {
+      closeGallery();
+    }
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (!galleryModal.classList.contains("active")) return;
+
+    if (event.key === "Escape") {
+      closeGallery();
+    }
+
+    if (event.key === "ArrowLeft") {
+      showPhoto(currentIndex - 1);
+      startSlideshow();
+    }
+
+    if (event.key === "ArrowRight") {
+      showPhoto(currentIndex + 1);
+      startSlideshow();
+    }
+  });
+
+  /* Swipe foto di HP */
+  galleryModalImage.addEventListener("touchstart", function (event) {
+    touchStartX = event.changedTouches[0].screenX;
+  });
+
+  galleryModalImage.addEventListener("touchend", function (event) {
+    touchEndX = event.changedTouches[0].screenX;
+
+    const jarak = touchEndX - touchStartX;
+
+    if (Math.abs(jarak) < 40) return;
+
+    if (jarak < 0) {
+      showPhoto(currentIndex + 1);
+    } else {
+      showPhoto(currentIndex - 1);
+    }
+
+    startSlideshow();
+  });
+});

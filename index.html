@@ -901,90 +901,92 @@
         </div>
 
 
-        <div class="gallery">
+        <div class="gallery" id="galleryCategories">
 
+  <button class="gallery-item" type="button"
+    data-title="Kegiatan Pemuda"
+    data-photos="gpemuda.1.jpg,gpemuda.2.jpg,gpemuda.3.jpg,gpemuda.4.jpg,gpemuda.5.jpg">
+    <img src="gpemuda.1.jpg" alt="Kegiatan Pemuda">
+    <div class="gallery-overlay">
+      <strong>Kegiatan Pemuda</strong>
+      <span>5 Foto Kegiatan</span>
+    </div>
+  </button>
 
-          <div class="gallery-item">
+  <button class="gallery-item" type="button"
+    data-title="Olahraga"
+    data-photos="olg.1.jpg,olg.2.jpg,olg.3.jpg,olg.4.jpg,olg.5.jpg">
+    <img src="olg.1.jpg" alt="Olahraga">
+    <div class="gallery-overlay">
+      <strong>Olahraga</strong>
+      <span>5 Foto Kegiatan</span>
+    </div>
+  </button>
 
-            <div class="gallery-placeholder">
-              📸
-            </div>
+  <button class="gallery-item" type="button"
+    data-title="HUT RI"
+    data-photos="hut.1.jpg,hut.2.jpg,hut.3.jpg,hut.4.jpg,hut.5.jpg">
+    <img src="hut.1.jpg" alt="Kegiatan HUT RI">
+    <div class="gallery-overlay">
+      <strong>HUT RI</strong>
+      <span>5 Foto Kegiatan</span>
+    </div>
+  </button>
 
-            <span>
-              Kegiatan Pemuda
-            </span>
+  <button class="gallery-item" type="button"
+    data-title="Kegiatan Sosial"
+    data-photos="sos.1.jpg,sos.2.jpg,sos.3.jpg,sos.4.jpg,sos.5.jpg">
+    <img src="sos.1.jpg" alt="Kegiatan Sosial">
+    <div class="gallery-overlay">
+      <strong>Kegiatan Sosial</strong>
+      <span>5 Foto Kegiatan</span>
+    </div>
+  </button>
 
-          </div>
+  <button class="gallery-item" type="button"
+    data-title="Kerja Bakti"
+    data-photos="kb.1.jpg,kb.2.jpg,kb.3.jpg,kb.4.jpg,kb.5.jpg">
+    <img src="kb.1.jpg" alt="Kerja Bakti">
+    <div class="gallery-overlay">
+      <strong>Kerja Bakti</strong>
+      <span>5 Foto Kegiatan</span>
+    </div>
+  </button>
 
+  <button class="gallery-item" type="button"
+    data-title="Acara Desa"
+    data-photos="adesa.1.jpg,adesa.2.jpg,adesa.3.jpg,adesa.4.jpg,adesa.5.jpg">
+    <img src="adesa.1.jpg" alt="Acara Desa">
+    <div class="gallery-overlay">
+      <strong>Acara Desa</strong>
+      <span>5 Foto Kegiatan</span>
+    </div>
+  </button>
 
-          <div class="gallery-item">
+</div>
 
-            <div class="gallery-placeholder">
-              🏃
-            </div>
+<!-- Modal Galeri -->
+<div class="gallery-modal" id="galleryModal">
+  <button class="gallery-close" id="galleryClose" type="button">×</button>
 
-            <span>
-              Olahraga
-            </span>
+  <div class="gallery-modal-content">
+    <h3 id="galleryModalTitle">Galeri</h3>
 
-          </div>
+    <button class="gallery-nav gallery-prev" id="galleryPrev" type="button">
+      ‹
+    </button>
 
+    <img id="galleryModalImage" src="" alt="Foto galeri">
 
-          <div class="gallery-item">
+    <button class="gallery-nav gallery-next" id="galleryNext" type="button">
+      ›
+    </button>
 
-            <div class="gallery-placeholder">
-              🇮🇩
-            </div>
-
-            <span>
-              HUT RI
-            </span>
-
-          </div>
-
-
-          <div class="gallery-item">
-
-            <div class="gallery-placeholder">
-              🤝
-            </div>
-
-            <span>
-              Kegiatan Sosial
-            </span>
-
-          </div>
-
-
-          <div class="gallery-item">
-
-            <div class="gallery-placeholder">
-              🌱
-            </div>
-
-            <span>
-              Kerja Bakti
-            </span>
-
-          </div>
-
-
-          <div class="gallery-item">
-
-            <div class="gallery-placeholder">
-              🎉
-            </div>
-
-            <span>
-              Acara Desa
-            </span>
-
-          </div>
-
-
-        </div>
-
-      </div>
+    <div class="gallery-counter" id="galleryCounter">
+      1 / 5
+    </div>
+  </div>
+</div>
 
     </section>
 

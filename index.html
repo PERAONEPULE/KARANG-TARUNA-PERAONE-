@@ -283,6 +283,7 @@
         </li>
 
       </ul>
+      <a href="#kontak-pengurus">Hubungi Pengurus</a>
 
     </nav>
 
@@ -1368,6 +1369,413 @@ CEKLIS VERIFIKASI DI FORM DRIVE DILAKUKAN OLEH ADMIN SECARA MANUAL AGAR TERHINDA
        ========================= -->
 
   <script src="script.js"></script>
+
+<!-- ==========================================
+     KONTAK PENGURUS KARANG TARUNA PERAONEPULE
+=========================================== -->
+
+<section id="kontak-pengurus" class="kt-contact">
+
+  <div class="kt-contact-container">
+
+    <div class="kt-contact-header">
+      <span class="kt-contact-label">LAYANAN INFORMASI</span>
+
+      <h2>Hubungi Pengurus</h2>
+
+      <p>
+        Ada pertanyaan, saran, atau keperluan organisasi?
+        Silakan hubungi pengurus Karang Taruna PERAONEPULE
+        melalui formulir berikut.
+      </p>
+    </div>
+
+    <form id="ktContactForm">
+
+      <!-- NAMA -->
+      <div class="kt-contact-field">
+        <label for="ktNama">Nama Lengkap</label>
+
+        <input
+          type="text"
+          id="ktNama"
+          placeholder="Masukkan nama lengkap Anda"
+          maxlength="100"
+          required
+        >
+      </div>
+
+      <!-- PILIH PENGURUS -->
+      <div class="kt-contact-field">
+        <label for="ktPengurus">Pilih Pengurus</label>
+
+        <select id="ktPengurus" required>
+          <option value="">-- Pilih Pengurus --</option>
+          <option value="ardian">ARDIAN - Ketua</option>
+          <option value="faris">FARIS - Wakil Ketua</option>
+          <option value="lulu">LULU - Sekretaris</option>
+          <option value="aril">ARIL - Sekretaris</option>
+        </select>
+      </div>
+
+      <!-- KEPERLUAN -->
+      <div class="kt-contact-field">
+        <label for="ktKeperluan">Keperluan</label>
+
+        <select id="ktKeperluan" required>
+          <option value="">-- Pilih Keperluan --</option>
+          <option value="Informasi Organisasi">
+            Informasi Organisasi
+          </option>
+          <option value="Kegiatan Karang Taruna">
+            Kegiatan Karang Taruna
+          </option>
+          <option value="Kas dan Pembayaran">
+            Kas dan Pembayaran
+          </option>
+          <option value="Kerja Sama">
+            Kerja Sama
+          </option>
+          <option value="Saran dan Aspirasi">
+            Saran dan Aspirasi
+          </option>
+          <option value="Pengaduan">
+            Pengaduan
+          </option>
+          <option value="Lainnya">
+            Lainnya
+          </option>
+        </select>
+      </div>
+
+      <!-- ISI PESAN -->
+      <div class="kt-contact-field">
+        <label for="ktPesan">Isi Pesan</label>
+
+        <textarea
+          id="ktPesan"
+          rows="5"
+          maxlength="2000"
+          placeholder="Tuliskan pesan atau keperluan Anda..."
+          required
+        ></textarea>
+      </div>
+
+      <!-- TOMBOL KIRIM -->
+      <button type="submit" class="kt-contact-button">
+        <span>✆</span>
+        Kirim melalui WhatsApp
+      </button>
+
+      <p class="kt-contact-note">
+        Pesan akan diteruskan langsung ke WhatsApp
+        pengurus yang Anda pilih.
+      </p>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<!-- ==========================================
+     CSS KONTAK PENGURUS
+=========================================== -->
+
+<style>
+
+.kt-contact {
+  padding: 65px 20px;
+  color: inherit;
+  background: transparent;
+}
+
+.kt-contact-container {
+  max-width: 650px;
+  margin: auto;
+  padding: 32px;
+  border: 1px solid rgba(183,149,80,.5);
+  border-radius: 16px;
+  background: rgba(255,255,255,.04);
+  box-sizing: border-box;
+}
+
+.kt-contact-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.kt-contact-label {
+  color: #b79550;
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.kt-contact-header h2 {
+  font-size: 30px;
+  margin: 12px 0;
+}
+
+.kt-contact-header p {
+  font-size: 14px;
+  line-height: 1.8;
+  opacity: .8;
+}
+
+.kt-contact-field {
+  margin-bottom: 20px;
+}
+
+.kt-contact-field label {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.kt-contact-field input,
+.kt-contact-field select,
+.kt-contact-field textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid rgba(183,149,80,.5);
+  border-radius: 9px;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+  transition: .2s;
+}
+
+.kt-contact-field input:focus,
+.kt-contact-field select:focus,
+.kt-contact-field textarea:focus {
+  border-color: #bd9952;
+  box-shadow: 0 0 0 2px rgba(189,153,82,.12);
+}
+
+.kt-contact-field select option {
+  background: #242424;
+  color: white;
+}
+
+.kt-contact-field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.kt-contact-button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 9px;
+  background: #168b50;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.kt-contact-button:hover {
+  background: #116b3d;
+  transform: translateY(-2px);
+}
+
+.kt-contact-button span {
+  margin-right: 7px;
+  font-size: 18px;
+}
+
+.kt-contact-note {
+  font-size: 12px;
+  text-align: center;
+  opacity: .65;
+  margin-top: 15px;
+  line-height: 1.6;
+}
+
+/* TAMPILAN HP */
+
+@media (max-width: 600px) {
+
+  .kt-contact {
+    padding: 40px 14px;
+  }
+
+  .kt-contact-container {
+    padding: 22px 17px;
+  }
+
+  .kt-contact-header h2 {
+    font-size: 25px;
+  }
+
+}
+
+</style>
+
+
+<!-- ==========================================
+     JAVASCRIPT WHATSAPP
+=========================================== -->
+
+<script>
+
+(function () {
+
+  // NOMOR WHATSAPP PENGURUS
+
+  const nomorPengurus = {
+
+    ardian: "6289504318386",
+
+    faris: "6285524645802",
+
+    lulu: "62895390842770",
+
+    aril: "6285718763681"
+
+  };
+
+
+  function initKontakPeraonepule() {
+
+    const form = document.getElementById("ktContactForm");
+
+    if (!form || form.dataset.initialized === "true") {
+      return;
+    }
+
+    form.dataset.initialized = "true";
+
+    form.addEventListener("submit", function (event) {
+
+      event.preventDefault();
+
+      const nama = document
+        .getElementById("ktNama")
+        .value.trim();
+
+      const pengurus = document
+        .getElementById("ktPengurus")
+        .value;
+
+      const keperluan = document
+        .getElementById("ktKeperluan")
+        .value;
+
+      const pesan = document
+        .getElementById("ktPesan")
+        .value.trim();
+
+
+      // VALIDASI FORMULIR
+
+      if (!nama || !pengurus || !keperluan || !pesan) {
+
+        alert("Mohon lengkapi semua formulir.");
+
+        return;
+
+      }
+
+
+      // AMBIL NOMOR PENGURUS
+
+      const nomor = nomorPengurus[pengurus];
+
+      if (!nomor) {
+
+        alert("Pengurus tidak ditemukan.");
+
+        return;
+
+      }
+
+
+      // NAMA PENGURUS
+
+      const namaPengurus = {
+
+        ardian: "ARDIAN - Ketua",
+
+        faris: "FARIS - Wakil Ketua",
+
+        lulu: "LULU - Sekretaris",
+
+        aril: "ARIL - Sekretaris"
+
+      };
+
+
+      // FORMAT PESAN WHATSAPP
+
+      const isiPesan =
+
+`Assalamu'alaikum Wr. Wb.
+
+Halo Pengurus Karang Taruna PERAONEPULE.
+
+Saya ingin menghubungi pengurus dengan rincian berikut:
+
+Nama: ${nama}
+
+Tujuan: ${namaPengurus[pengurus]}
+
+Keperluan: ${keperluan}
+
+Pesan:
+${pesan}
+
+Terima kasih.
+Wassalamu'alaikum Wr. Wb.`;
+
+
+      // BUKA WHATSAPP
+
+      const url =
+
+        "https://wa.me/" +
+        nomor +
+        "?text=" +
+        encodeURIComponent(isiPesan);
+
+      window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+    });
+
+  }
+
+
+  if (document.readyState === "loading") {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      initKontakPeraonepule
+    );
+
+  } else {
+
+    initKontakPeraonepule();
+
+  }
+
+})();
+
+</script>
+
+<!-- ==========================================
+     SELESAI
+=========================================== -->
 
 
 </body>

@@ -451,6 +451,72 @@
       <div class="hero-overlay"></div>
 
       <div class="hero-content container">
+        <div class="pera-clock-calendar">
+  <div id="pera-clock">00:00:00 WIB</div>
+  <div id="pera-date"></div>
+  <div id="pera-month"></div>
+</div>
+
+<style>
+.pera-clock-calendar {
+  text-align: center;
+  margin: 0 auto 25px;
+  padding: 16px;
+  max-width: 320px;
+  border: 1px solid rgba(220,180,90,.5);
+  border-radius: 16px;
+  background: rgba(8,20,38,.75);
+  color: #fff;
+}
+#pera-clock {
+  font-size: 32px;
+  font-weight: bold;
+  color: #e3bd69;
+}
+#pera-date {
+  margin-top: 8px;
+  font-size: 15px;
+}
+#pera-month {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #e3bd69;
+}
+</style>
+
+<script>
+function updatePeraClock() {
+  const now = new Date();
+
+  document.getElementById("pera-clock").textContent =
+    new Intl.DateTimeFormat("id-ID", {
+      timeZone: "Asia/Jakarta",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    }).format(now) + " WIB";
+
+  document.getElementById("pera-date").textContent =
+    new Intl.DateTimeFormat("id-ID", {
+      timeZone: "Asia/Jakarta",
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }).format(now);
+
+  document.getElementById("pera-month").textContent =
+    "📅 " + new Intl.DateTimeFormat("id-ID", {
+      timeZone: "Asia/Jakarta",
+      month: "long",
+      year: "numeric"
+    }).format(now);
+}
+
+updatePeraClock();
+setInterval(updatePeraClock, 1000);
+</script>
 
         <span class="badge">
           KARANG TARUNA

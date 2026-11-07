@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin PERAONEPULE</title>
+  <link rel="stylesheet" href="admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script defer src="admin.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="../index.html"><img src="../logo.png" alt="Logo"> <span>PERAONEPULE <small>Admin Panel</small></span></a>
+      <a class="back" href="../index.html">← Website</a>
+    </header>
+
+    <section id="loginView" class="login-card">
+      <div class="eyebrow">AREA PENGURUS</div>
+      <h1>Login Dashboard</h1>
+      <p>Masuk menggunakan akun yang sudah dibuat di Supabase Authentication.</p>
+      <form id="loginForm">
+        <label>Email
+          <input id="email" type="email" autocomplete="username" required placeholder="admin@email.com">
+        </label>
+        <label>Password
+          <input id="password" type="password" autocomplete="current-password" required placeholder="Password">
+        </label>
+        <button type="submit" class="primary">Masuk</button>
+      </form>
+      <div id="loginMessage" class="message" role="status"></div>
+      <p class="small">Akses hanya diberikan kepada akun dengan role <code>admin</code> atau <code>pengurus</code> di tabel <code>profiles</code>.</p>
+    </section>
+
+    <section id="dashboardView" hidden>
+      <div class="welcome">
+        <div><div class="eyebrow">DASHBOARD ORGANISASI</div><h1>Panel Admin</h1><p id="userLabel">PERAONEPULE</p></div>
+        <button id="logoutButton" class="ghost">Keluar</button>
+      </div>
+      <div id="statusMessage" class="message" role="status"></div>
+      <div class="stats">
+        <article><span>Anggota</span><strong id="membersCount">—</strong><small>Data tabel members</small></article>
+        <article><span>Pembayaran kas</span><strong id="paymentsCount">—</strong><small>Data tabel dues_payments</small></article>
+        <article><span>Transaksi kas</span><strong id="cashCount">—</strong><small>Data tabel cash_transactions</small></article>
+      </div>
+      <nav class="tabs">
+        <button class="tab active" data-tab="members">Anggota</button>
+        <button class="tab" data-tab="payments">Pembayaran</button>
+        <button class="tab" data-tab="cash">Transaksi Kas</button>
+        <button id="refreshButton" class="ghost">↻ Muat ulang</button>
+      </nav>
+      <section class="panel">
+        <div class="panel-heading"><h2 id="tableTitle">Data Anggota</h2><span id="tableHint">Data dari Supabase</span></div>
+        <div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div>
+      </section>
+      <p class="footnote">Dashboard awal: menampilkan data dari Supabase. Fungsi tambah/edit/hapus akan ditambahkan setelah struktur kolom database dikonfirmasi.</p>
+    </section>
+  </main>
+</body>
+</html>

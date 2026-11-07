@@ -1013,3 +1013,33 @@ a {
     height: 155px;
   }
 }
+/* ===== BACKGROUND BATIK KAWUNG PERAONEPULE ===== */
+
+.hero {
+  background-color: #101827 !important;
+  background-image:
+    radial-gradient(
+      ellipse at center,
+      transparent 24%,
+      rgba(212, 175, 95, 0.45) 25%,
+      rgba(212, 175, 95, 0.45) 29%,
+      transparent 30%,
+      transparent 44%,
+      rgba(212, 175, 95, 0.25) 45%,
+      rgba(212, 175, 95, 0.25) 48%,
+      transparent 49%
+    ),
+    linear-gradient(
+      135deg,
+      #101827,
+      #18283d 55%,
+      #263b55
+    ) !important;
+
+  background-size: 75px 75px, cover !important;
+  background-position: center, center !important;
+}
+
+.hero-overlay {
+  background: rgba(10, 20, 35, 0.45) !important;
+}

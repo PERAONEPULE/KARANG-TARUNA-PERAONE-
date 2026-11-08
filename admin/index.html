@@ -54,6 +54,30 @@
         <div class="panel-heading"><h2 id="tableTitle">Data Anggota</h2><span id="tableHint">Data dari Supabase</span></div>
         <div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div>
       </section>
+      <section class="panel">
+  <div class="panel-heading">
+    <h2>Upload Galeri Kegiatan</h2>
+  </div>
+
+  <label for="galleryCategory">Kategori kegiatan</label>
+  <select id="galleryCategory">
+    <option value="gpemuda">Galeri Pemuda</option>
+    <option value="olg">Olahraga</option>
+    <option value="hut">HUT RI</option>
+    <option value="sos">Kegiatan Sosial</option>
+    <option value="kb">Kerja Bakti</option>
+    <option value="adesa">Acara Desa</option>
+  </select>
+
+  <label for="galleryPhoto">Pilih foto</label>
+  <input id="galleryPhoto" type="file" accept="image/*">
+
+  <button id="uploadGalleryButton" class="primary">
+    Upload Foto
+  </button>
+
+  <div id="galleryUploadMessage" class="message"></div>
+</section>
       <p class="footnote">Dashboard awal: menampilkan data dari Supabase. Fungsi tambah/edit/hapus akan ditambahkan setelah struktur kolom database dikonfirmasi.</p>
     </section>
   </main>

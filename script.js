@@ -1548,3 +1548,58 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("Galeri Supabase:", error);
   }
 })();
+/* ===== UPDATE SAMPUL KARTU GALERI DARI SUPABASE ===== */
+(async function updateSampulGaleri() {
+  try {
+    const client = window.supabase.createClient(
+      window.PERAONE_SUPABASE_URL,
+      window.PERAONE_SUPABASE_ANON_KEY
+    );
+
+    const folderKategori = {
+      "Kegiatan Pemuda": "gpemuda",
+      "Olahraga": "olg",
+      "HUT RI": "hut",
+      "Kegiatan Sosial": "sos",
+      "Kerja Bakti": "kb",
+      "Acara Desa": "adesa"
+    };
+
+    const kartu = document.querySelectorAll(".gallery-item");
+
+    for (const item of kartu) {
+      const judul = item.dataset.title;
+      const folder = folderKategori[judul];
+
+      if (!folder) continue;
+
+      const { data, error } = await client.storage
+        .from("galeri-peraone")
+        .list(folder, {
+          limit: 100,
+          sortBy: { column: "created_at", order: "desc" }
+        });
+
+      if (error || !data?.length) continue;
+
+      const foto = data.find(file =>
+        /\.(jpg|jpeg|png|webp|gif)$/i.test(file.name)
+      );
+
+      if (!foto) continue;
+
+      const { data: url } = client.storage
+        .from("galeri-peraone")
+        .getPublicUrl(folder + "/" + foto.name);
+
+      const gambar = item.querySelector("img");
+
+      if (gambar) {
+        gambar.src = url.publicUrl;
+        gambar.alt = judul;
+      }
+    }
+  } catch (error) {
+    console.error("Gagal memperbarui sampul galeri:", error);
+  }
+})();

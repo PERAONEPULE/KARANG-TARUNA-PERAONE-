@@ -1469,3 +1469,82 @@ document.addEventListener("DOMContentLoaded", function () {
     startSlideshow();
   });
 });
+/* ===== GALERI OTOMATIS SUPABASE PERAONEPULE ===== */
+(async function galeriSupabasePeraone() {
+  try {
+    if (!window.supabase || !window.PERAONE_SUPABASE_URL ||
+        !window.PERAONE_SUPABASE_ANON_KEY) {
+      console.warn("Konfigurasi Supabase belum tersedia.");
+      return;
+    }
+
+    const client = window.supabase.createClient(
+      window.PERAONE_SUPABASE_URL,
+      window.PERAONE_SUPABASE_ANON_KEY
+    );
+
+    const kategori = [
+      { folder: "gpemuda", judul: "Kegiatan Pemuda" },
+      { folder: "olg", judul: "Olahraga" },
+      { folder: "hut", judul: "HUT RI" },
+      { folder: "sos", judul: "Sosial" },
+      { folder: "kb", judul: "Kerja Bakti" },
+      { folder: "adesa", judul: "Acara Desa" }
+    ];
+
+    for (const item of kategori) {
+      const heading = [...document.querySelectorAll("h2")]
+        .find(h => h.textContent.trim().toLowerCase()
+          .includes(item.judul.toLowerCase()));
+
+      if (!heading) continue;
+
+      const section = heading.closest("section");
+      const grid = section?.querySelector(".activity-photo-grid");
+
+      if (!grid) continue;
+
+      const { data, error } = await client.storage
+        .from("galeri-peraone")
+        .list(item.folder, {
+          limit: 100,
+          sortBy: { column: "created_at", order: "desc" }
+        });
+
+      if (error) {
+        console.error("Gagal memuat " + item.folder, error);
+        continue;
+      }
+
+      (data || []).forEach(file => {
+        if (!file.name || file.name.startsWith(".")) return;
+
+        if (!/\.(jpg|jpeg|png|webp|gif)$/i.test(file.name)) return;
+
+        const path = item.folder + "/" + file.name;
+        const { data: urlData } = client.storage
+          .from("galeri-peraone")
+          .getPublicUrl(path);
+
+        const card = document.createElement("div");
+        card.className = "activity-photo";
+
+        const img = document.createElement("img");
+        img.src = urlData.publicUrl;
+        img.alt = item.judul;
+        img.loading = "lazy";
+
+        const caption = document.createElement("div");
+        caption.className = "photo-caption";
+        caption.textContent = item.judul;
+
+        card.append(img, caption);
+        grid.prepend(card);
+      });
+    }
+
+    console.log("Galeri Supabase berhasil dimuat.");
+  } catch (error) {
+    console.error("Galeri Supabase:", error);
+  }
+})();

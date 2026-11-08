@@ -102,4 +102,42 @@
 
   db.auth.getSession().then(({data}) => showSession(data.session));
   db.auth.onAuthStateChange((_event, session) => { showSession(session); });
+  const uploadGalleryButton = $('uploadGalleryButton');
+
+if (uploadGalleryButton) {
+  uploadGalleryButton.addEventListener('click', async () => {
+    const file = $('galleryPhoto').files[0];
+    const category = $('galleryCategory').value;
+    const msg = $('galleryUploadMessage');
+
+    if (!file) {
+      msg.textContent = 'Pilih foto terlebih dahulu.';
+      return;
+    }
+
+    uploadGalleryButton.disabled = true;
+    msg.textContent = 'Mengunggah foto...';
+
+    try {
+      const fileName = file.name.replace(/[^\w.-]/g, '_');
+      const filePath = `${category}/${Date.now()}-${fileName}`;
+
+      const { error } = await db.storage
+        .from('galeri-peraone')
+        .upload(filePath, file);
+
+      if (error) throw error;
+
+      const { data } = db.storage
+        .from('galeri-peraone')
+        .getPublicUrl(filePath);
+
+      msg.textContent = 'Foto berhasil diunggah! ' + data.publicUrl;
+    } catch (error) {
+      msg.textContent = 'Gagal upload: ' + error.message;
+    } finally {
+      uploadGalleryButton.disabled = false;
+    }
+  });
+}
 })();

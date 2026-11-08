@@ -1603,3 +1603,94 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("Gagal memperbarui sampul galeri:", error);
   }
 })();
+/* ===== GALERI SUPABASE TANPA BATAS FOTO ===== */
+(async function galeriSupabaseUnlimited() {
+  try {
+    const client = window.supabase.createClient(
+      window.PERAONE_SUPABASE_URL,
+      window.PERAONE_SUPABASE_ANON_KEY
+    );
+
+    const kategori = {
+      "Kegiatan Pemuda": "gpemuda",
+      "Olahraga": "olg",
+      "HUT RI": "hut",
+      "Kegiatan Sosial": "sos",
+      "Kerja Bakti": "kb",
+      "Acara Desa": "adesa"
+    };
+
+    const ekstensiFoto = /\.(jpg|jpeg|png|webp|gif)$/i;
+
+    async function ambilSemuaFoto(folder) {
+      let semuaFoto = [];
+      let offset = 0;
+      const jumlahPerHalaman = 1000;
+
+      while (true) {
+        const { data, error } = await client.storage
+          .from("galeri-peraone")
+          .list(folder, {
+            limit: jumlahPerHalaman,
+            offset,
+            sortBy: {
+              column: "created_at",
+              order: "desc"
+            }
+          });
+
+        if (error) {
+          console.error("Gagal mengambil foto:", folder, error);
+          break;
+        }
+
+        if (!data || data.length === 0) break;
+
+        semuaFoto = semuaFoto.concat(
+          data.filter(file => ekstensiFoto.test(file.name))
+        );
+
+        if (data.length < jumlahPerHalaman) break;
+
+        offset += jumlahPerHalaman;
+      }
+
+      return semuaFoto;
+    }
+
+    const kartuGaleri = document.querySelectorAll(".gallery-item");
+
+    for (const kartu of kartuGaleri) {
+      const judul = kartu.dataset.title;
+      const folder = kategori[judul];
+
+      if (!folder) continue;
+
+      const foto = await ambilSemuaFoto(folder);
+
+      if (!foto.length) continue;
+
+      const urls = foto.map(file =>
+        client.storage
+          .from("galeri-peraone")
+          .getPublicUrl(folder + "/" + file.name)
+          .data.publicUrl
+      );
+
+      // Sampul kartu memakai foto terbaru
+      const gambarSampul = kartu.querySelector("img");
+
+      if (gambarSampul) {
+        gambarSampul.src = urls[0];
+        gambarSampul.alt = judul;
+      }
+
+      // Isi galeri memakai semua foto Supabase
+      kartu.dataset.photos = urls.join(",");
+    }
+
+    console.log("Semua foto Supabase berhasil dimuat.");
+  } catch (error) {
+    console.error("Galeri Supabase:", error);
+  }
+})();

@@ -51,7 +51,27 @@
         <button id="refreshButton" class="ghost">↻ Muat ulang</button>
       </nav>
       <section class="panel">
-        <div class="panel-heading"><h2 id="tableTitle">Data Anggota</h2><span id="tableHint">Data dari Supabase</span></div>
+        <div class="panel-heading members-heading">
+          <div><h2 id="tableTitle">Data Anggota</h2><span id="tableHint">Data dari Supabase</span></div>
+          <button id="addMemberButton" class="primary compact">+ Tambah Anggota</button>
+        </div>
+        <div id="memberFormWrap" class="member-form-wrap" hidden>
+          <h3 id="memberFormTitle">Tambah anggota</h3>
+          <form id="memberForm" class="member-form">
+            <input id="memberEditId" type="hidden">
+            <label>Nama anggota
+              <input id="memberName" type="text" maxlength="120" required placeholder="Nama lengkap">
+            </label>
+            <label>Alamat
+              <textarea id="memberAddress" rows="2" placeholder="Isi alamat anggota (boleh dikosongkan)"></textarea>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="primary compact">Simpan</button>
+              <button type="button" id="cancelMemberButton" class="ghost">Batal</button>
+            </div>
+          </form>
+          <div id="memberFormMessage" class="message" role="status"></div>
+        </div>
         <div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div>
       </section>
       <section class="panel">
@@ -78,7 +98,7 @@
 
   <div id="galleryUploadMessage" class="message"></div>
 </section>
-      <p class="footnote">Dashboard awal: menampilkan data dari Supabase. Fungsi tambah/edit/hapus akan ditambahkan setelah struktur kolom database dikonfirmasi.</p>
+      <p class="footnote">ID anggota dibuat otomatis dan diurutkan berdasarkan nama A–Z. Pengelolaan ini hanya mengubah tabel members, tidak mengubah rekap kas.</p>
     </section>
   </main>
 </body>

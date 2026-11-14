@@ -71,26 +71,93 @@
     message($('statusMessage'), 'Data berhasil diperbarui.', true);
   }
 
-  function renderTab() {
+  async function renderTab() {
     const cfg = tabs[currentTab];
     $('tableTitle').textContent = cfg.title;
     $('tableHint').textContent = `Tabel: ${cfg.table}`;
     $('tableHead').innerHTML = '';
     $('tableBody').innerHTML = '<tr><td class="empty">Memuat…</td></tr>';
-    db.from(cfg.table).select('*').limit(50).then(({data,error}) => {
-      if (error) {
-        $('tableBody').innerHTML = `<tr><td class="empty">Gagal membaca data: ${escapeHtml(error.message)}. Periksa RLS/policy.</td></tr>`;
-        return;
-      }
-      if (!data || !data.length) {
-        $('tableBody').innerHTML = '<tr><td class="empty">Belum ada data di tabel ini.</td></tr>';
-        return;
-      }
-      const columns = Object.keys(data[0]).slice(0,8);
-      $('tableHead').innerHTML = '<tr>' + columns.map(c=>`<th>${escapeHtml(c)}</th>`).join('') + '</tr>';
-      $('tableBody').innerHTML = data.map(row => '<tr>' + columns.map(c=>`<td>${escapeHtml(formatCell(row[c]))}</td>`).join('') + '</tr>').join('');
-    });
+
+    const query = db.from(cfg.table).select('*').limit(500);
+    const { data, error } = currentTab === 'members'
+      ? await query.order('name', { ascending:true })
+      : await query;
+    if (error) {
+      $('tableBody').innerHTML = `<tr><td class="empty">Gagal membaca data: ${escapeHtml(error.message)}. Periksa RLS/policy dan jalankan SQL pembaruan anggota.</td></tr>`;
+      return;
+    }
+    if (!data || !data.length) {
+      $('tableBody').innerHTML = '<tr><td class="empty">Belum ada data di tabel ini.</td></tr>';
+      return;
+    }
+
+    if (currentTab === 'members') {
+      const columns = ['member_code','name','phone','address','status','created_at'];
+      $('tableHead').innerHTML = '<tr>' + columns.map(c=>`<th>${escapeHtml(c === 'member_code' ? 'ID Anggota' : c)}</th>`).join('') + '<th>Aksi</th></tr>';
+      $('tableBody').innerHTML = data.map(row => {
+        const uid = escapeHtml(row.member_uid || '');
+        return '<tr>' + columns.map(c=>`<td>${escapeHtml(formatCell(row[c]))}</td>`).join('') +
+          `<td><button class="ghost edit-member" data-uid="${uid}">Edit alamat</button></td></tr>`;
+      }).join('');
+      $('tableBody').querySelectorAll('.edit-member').forEach(btn => btn.addEventListener('click', () => {
+        const row = data.find(item => String(item.member_uid) === btn.dataset.uid);
+        if (row) openMemberForm(row);
+      }));
+      return;
+    }
+
+    const columns = Object.keys(data[0]).slice(0,8);
+    $('tableHead').innerHTML = '<tr>' + columns.map(c=>`<th>${escapeHtml(c)}</th>`).join('') + '</tr>';
+    $('tableBody').innerHTML = data.map(row => '<tr>' + columns.map(c=>`<td>${escapeHtml(formatCell(row[c]))}</td>`).join('') + '</tr>').join('');
   }
+
+  function openMemberForm(row=null) {
+    $('memberForm').reset();
+    $('memberEditId').value = row?.member_uid || '';
+    $('memberName').value = row?.name || '';
+    $('memberName').readOnly = !!row;
+    $('memberAddress').value = row?.address || '';
+    $('memberFormTitle').textContent = row ? 'Edit alamat anggota' : 'Tambah anggota';
+    $('memberFormMessage').textContent = '';
+    $('memberFormWrap').hidden = false;
+    $('memberFormWrap').scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  $('addMemberButton').addEventListener('click', () => openMemberForm());
+  $('cancelMemberButton').addEventListener('click', () => {
+    $('memberFormWrap').hidden = true;
+    $('memberForm').reset();
+    $('memberName').readOnly = false;
+  });
+
+  $('memberForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const uid = $('memberEditId').value;
+    const name = $('memberName').value.trim();
+    const address = $('memberAddress').value.trim() || null;
+    const submit = $('memberForm').querySelector('[type="submit"]');
+    if (!name) return message($('memberFormMessage'), 'Nama anggota wajib diisi.');
+    submit.disabled = true;
+    message($('memberFormMessage'), 'Menyimpan data…');
+    try {
+      let result;
+      if (uid) {
+        result = await db.from('members').update({ address }).eq('member_uid', uid);
+      } else {
+        result = await db.from('members').insert({ name, address, status:'aktif' });
+      }
+      if (result.error) throw result.error;
+      message($('memberFormMessage'), 'Data anggota berhasil disimpan.', true);
+      $('memberForm').reset();
+      $('memberName').readOnly = false;
+      $('memberFormWrap').hidden = true;
+      await loadData();
+    } catch (err) {
+      message($('memberFormMessage'), 'Gagal menyimpan: ' + err.message);
+    } finally {
+      submit.disabled = false;
+    }
+  });
   function formatCell(v) {
     if (v === null || v === undefined) return '—';
     if (typeof v === 'object') return JSON.stringify(v);

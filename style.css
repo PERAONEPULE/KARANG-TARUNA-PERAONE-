@@ -488,7 +488,7 @@ a {
 
 .footer-content {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
   gap: 40px;
   padding-bottom: 40px;
 }
@@ -516,6 +516,36 @@ a {
 
 .footer a:hover {
   color: white;
+}
+
+.footer-admin-help p {
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+.footer-admin-help .footer-admin-name {
+  margin-top: 12px;
+  color: #c7b27a;
+}
+
+.footer-admin-help .footer-admin-name strong {
+  color: #ffffff;
+}
+
+.footer-admin-help .footer-admin-email {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 10px 14px;
+  border: 1px solid #c7a75b;
+  border-radius: 8px;
+  color: #e5c878;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.footer-admin-help .footer-admin-email:hover {
+  background: #c7a75b;
+  color: #0b111c;
 }
 
 .copyright {

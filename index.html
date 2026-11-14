@@ -21,6 +21,7 @@
   <title>Karang Taruna PERAONEPULE</title>
 
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="berita.css">
 
   <style>
 
@@ -393,6 +394,11 @@
         <li>
           <a href="#kegiatan">
             Kegiatan
+          </a>
+        </li>
+        <li>
+          <a href="#berita">
+            Berita
           </a>
         </li>
 
@@ -800,7 +806,27 @@ setInterval(updatePeraClock, 1000);
          STRUKTUR PENGURUS
          ========================= -->
 
-    <section
+    
+    <!-- PENGUMUMAN & BERITA: tampil otomatis jika sudah ada berita -->
+    <section class="news-section" id="berita" hidden>
+      <div class="container">
+        <div class="news-heading">
+          <div>
+            <span class="news-eyebrow">INFORMASI TERBARU</span>
+            <h2>Pengumuman &amp; Berita</h2>
+            <p>Kabar terbaru Karang Taruna PERAONEPULE.</p>
+          </div>
+          <a class="news-manage-link" href="admin/berita.html">Kelola berita</a>
+        </div>
+        <div class="news-grid" id="newsGrid" aria-live="polite"></div>
+        <div class="news-footer">
+          <button class="news-more-button" id="newsMoreButton" type="button" hidden>Lihat semua berita</button>
+          <p class="news-status" id="newsStatus" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+<section
       class="section"
       id="struktur">
 
@@ -1553,6 +1579,7 @@ CEKLIS VERIFIKASI DI FORM DRIVE DILAKUKAN OLEH ADMIN SECARA MANUAL AGAR TERHINDA
        ========================= -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="admin/config.js"></script>
+<script src="berita.js"></script>
   <script src="script.js"></script>
 
 

@@ -1,0 +1,14 @@
+/* Papan pengumuman paling atas */
+.announcement-bar{position:relative;z-index:1001;display:flex;align-items:center;gap:10px;min-height:42px;padding:8px clamp(12px,3vw,28px);background:#14243a;color:#fff;border-bottom:2px solid #d8ad58;box-shadow:0 3px 12px rgba(0,0,0,.12);opacity:1;transform:translateY(0);transition:opacity .45s ease,transform .45s ease}
+.announcement-bar[hidden]{display:none!important}
+.announcement-bar.is-entering{opacity:0;transform:translateY(-12px)}
+.announcement-icon{flex:0 0 auto;font-size:17px}
+.announcement-label{flex:0 0 auto;color:#f1c76c;font-size:.68rem;font-weight:800;letter-spacing:.11em;white-space:nowrap}
+.announcement-text{display:block;min-width:0;flex:1;color:#fff;text-decoration:none;font-size:.84rem;font-weight:600;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:opacity .25s ease}
+.announcement-text:hover{text-decoration:underline}
+.announcement-text.is-changing{opacity:0}
+.announcement-counter{flex:0 0 auto;color:#cbd5e1;font-size:.68rem;font-variant-numeric:tabular-nums}
+.announcement-close{flex:0 0 auto;width:27px;height:27px;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:20px;line-height:1;cursor:pointer}
+.announcement-close:hover{background:rgba(255,255,255,.22)}
+@media(max-width:520px){.announcement-bar{gap:7px;min-height:40px;padding:7px 10px}.announcement-label{font-size:.59rem;letter-spacing:.06em}.announcement-text{font-size:.76rem}.announcement-counter{font-size:.62rem}}
+@media(prefers-reduced-motion:reduce){.announcement-bar,.announcement-text{transition:none!important}}

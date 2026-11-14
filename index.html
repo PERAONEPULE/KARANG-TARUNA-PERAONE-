@@ -22,6 +22,7 @@
 
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="berita.css">
+  <link rel="stylesheet" href="pengumuman-bar.css">
 
   <style>
 
@@ -345,6 +346,14 @@
 
 <body>
 
+  <!-- Papan pengumuman ringkas di bagian paling atas -->
+  <div id="announcementBar" class="announcement-bar" hidden aria-live="polite">
+    <span class="announcement-icon" aria-hidden="true">📢</span>
+    <span class="announcement-label">PENGUMUMAN</span>
+    <a id="announcementText" class="announcement-text" href="#berita"></a>
+    <span id="announcementCounter" class="announcement-counter"></span>
+    <button id="announcementClose" class="announcement-close" type="button" aria-label="Tutup pengumuman">×</button>
+  </div>
 
   <!-- =========================
        NAVBAR
@@ -1580,6 +1589,7 @@ CEKLIS VERIFIKASI DI FORM DRIVE DILAKUKAN OLEH ADMIN SECARA MANUAL AGAR TERHINDA
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="admin/config.js"></script>
 <script src="berita.js"></script>
+<script src="pengumuman-bar.js"></script>
   <script src="script.js"></script>
 
 

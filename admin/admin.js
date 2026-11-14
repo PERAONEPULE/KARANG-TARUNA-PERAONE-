@@ -97,7 +97,7 @@
       $('tableBody').innerHTML = data.map(row => {
         const uid = escapeHtml(row.member_uid || '');
         return '<tr>' + columns.map(c=>`<td>${escapeHtml(formatCell(row[c]))}</td>`).join('') +
-          `<td><button class="ghost edit-member" data-uid="${uid}">Edit alamat</button></td></tr>`;
+          `<td><button class="ghost edit-member" data-uid="${uid}">Edit data</button></td></tr>`;
       }).join('');
       $('tableBody').querySelectorAll('.edit-member').forEach(btn => btn.addEventListener('click', () => {
         const row = data.find(item => String(item.member_uid) === btn.dataset.uid);
@@ -115,9 +115,9 @@
     $('memberForm').reset();
     $('memberEditId').value = row?.member_uid || '';
     $('memberName').value = row?.name || '';
-    $('memberName').readOnly = !!row;
+    $('memberName').readOnly = false;
     $('memberAddress').value = row?.address || '';
-    $('memberFormTitle').textContent = row ? 'Edit alamat anggota' : 'Tambah anggota';
+    $('memberFormTitle').textContent = row ? 'Edit nama dan alamat anggota' : 'Tambah anggota';
     $('memberFormMessage').textContent = '';
     $('memberFormWrap').hidden = false;
     $('memberFormWrap').scrollIntoView({behavior:'smooth', block:'nearest'});
@@ -142,7 +142,7 @@
     try {
       let result;
       if (uid) {
-        result = await db.from('members').update({ address }).eq('member_uid', uid);
+        result = await db.from('members').update({ name, address }).eq('member_uid', uid);
       } else {
         result = await db.from('members').insert({ name, address, status:'aktif' });
       }
